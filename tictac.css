@@ -1,5 +1,5 @@
 :root {
-  --win-background: rgba(10, 10, 10, 0.5);
+  --win-background: rgba(0, 0, 0, 0.8);
   --cell-size: 100px;
   --mark-size: calc(var(--cell-size) * 0.9);
 }
@@ -51,10 +51,34 @@ body {
   border-right: none;
 }
 
+.cell.x {
+  background-color: crimson;
+}
+
+.cell.o {
+  background-color: navy;
+}
+
+.cell:hover {
+  cursor: pointer;
+}
+
+.cell.x:hover,
+.cell.o:hover {
+  cursor: not-allowed;
+}
+
+.board .cell:not(.x):not(.o):hover {
+  background-color: aqua;
+}
+
 .winning {
   height: 100vh;
   width: 100vw;
   background-color: var(--win-background);
+  position: fixed;
+  top: 0;
+  left: 0;
   display: none;
 }
 
@@ -71,6 +95,7 @@ body {
 }
 
 .message {
+  color: whitesmoke;
   font-size: 48px;
   margin: 10px;
 }
@@ -80,10 +105,10 @@ body {
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px 15px;
-  background-color: darkgray;
+  background-color: whitesmoke;
 }
 
 .reset:hover {
-  background-color: gray;
+  background-color: darkgray;
   cursor: pointer;
 }
