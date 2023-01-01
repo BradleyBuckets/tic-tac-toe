@@ -1,33 +1,16 @@
-// // gameboard
-// let gameboard = (() => {
-//   // represent the gameboard as a ]n array of arrays
-//   let tic = [
-//     ["", "", ""],
-//     ["", "", ""],
-//     ["", "", ""],
-//   ];
-//   let placeX = (row, column) => {
-//     tic[row][column] = "x";
-//   };
-//   return {
-//     tic,
-//     placeX,
-//   };
-// })();
-
-// let game = gameboard.tic;
-let draw = 8;
 // player 1 is always x
 // player 2 is always o
 //
+let draw = 8;
 let addMark = (e) => {
   // add mark to the grid
   gridMark(e.target.classList[1]);
   if (player1Turn) e.target.classList.add("x");
   else e.target.classList.add("o");
-  // check for a win
+  // check to see if there is a tie
   if (draw === 0) tieGame();
   else {
+    // check for a win
     if (player1Turn) checkWin("x");
     else checkWin("o");
     draw--;
@@ -61,6 +44,7 @@ const makeBoard = () => {
     board.appendChild(cell);
   }
 };
+
 makeBoard();
 // while is it player 1's turn, click a square an make it an x
 let player1Turn = true;
@@ -68,14 +52,17 @@ let player1Turn = true;
 let changeTurn = () => {
   player1Turn = !player1Turn;
 };
+
 // while is it player 2's turn, click a square an make it an o
 // after each players choice, check to see if that player has won
+// store the game board as data
 let grid = [
   ["", "", ""],
   ["", "", ""],
   ["", "", ""],
 ];
-//  (1,1)
+
+// pass the coordinates as a class (1,1) and map it to the grid
 const gridMark = (string) => {
   // break apart the string
   let coordinate = [...string];
@@ -85,43 +72,26 @@ const gridMark = (string) => {
   if (player1Turn) grid[row][column] = "x";
   else grid[row][column] = "o";
 };
+
 // check to see if a player has won
 let checkWin = (mark) => {
+  // rows
   if (grid[0].toString() === [mark, mark, mark].toString()) displayWin(mark);
   if (grid[1].toString() === [mark, mark, mark].toString()) displayWin(mark);
   if (grid[2].toString() === [mark, mark, mark].toString()) displayWin(mark);
+  // columns
   if (grid[0][0] === mark && grid[1][0] === mark && grid[2][0] === mark)
     displayWin(mark);
   if (grid[0][1] === mark && grid[1][1] === mark && grid[2][1] === mark)
     displayWin(mark);
   if (grid[0][2] === mark && grid[1][2] === mark && grid[2][2] === mark)
     displayWin(mark);
+  // diagonals
   if (grid[0][0] === mark && grid[1][1] === mark && grid[2][2] === mark)
     displayWin(mark);
   if (grid[0][2] === mark && grid[1][1] === mark && grid[2][0] === mark)
     displayWin(mark);
 };
-// let possibleWins
-//
-// winning rows
-// grid[0] || grid[1] || grid[2] === ["x", "x", "x"]
-// grid[0] || grid[1] || grid[2] === ["o", "o", "o"]
-//
-// winning collums
-// grid[0][0] === "x" && grid[1][0] === "x" && grid[2][0] === "x"
-// grid[0][1] === "x" && grid[1][1] === "x" && grid[2][1] === "x"
-// grid[0][2] === "x" && grid[1][2] === "x" && grid[2][2] === "x"
-//
-// grid[0][0] === "o" && grid[1][0] === "o" && grid[2][0] === "o"
-// grid[0][1] === "o" && grid[1][1] === "o" && grid[2][1] === "o"
-// grid[0][2] === "o" && grid[1][2] === "o" && grid[2][2] === "o"
-//
-// winning diagonals
-// grid[0][0] === "x" && grid[1][1] === "x" && grid[2][2] ==="x"
-// grid[0][2] === "x" && grid[1][1] === "x" && grid[2][0] ==="x"
-
-// grid[0][0] === "o" && grid[1][1] === "o" && grid[2][2] ==="o"
-// grid[0][2] === "o" && grid[1][1] === "o" && grid[2][0] ==="o"
 
 // display the winning message page with winning message
 let displayWin = (mark) => {
@@ -129,12 +99,12 @@ let displayWin = (mark) => {
   document.querySelector(".message").innerHTML = `${mark}'s win!`;
 };
 
+// display the winning message page with tie message
 let tieGame = () => {
   document.querySelector(".winning").style.display = "block";
   document.querySelector(".message").innerHTML = `It's a tie!`;
 };
-// check to see if there is a tie
-// display the winning message page with tie message
+
 // click reset button to play again
 let reset = () => {
   // reset grid
@@ -159,5 +129,6 @@ let clearBoard = () => {
   // change node list into array and then remove all the elements
   [...document.querySelectorAll(".cell")].forEach((cell) => cell.remove());
 };
+
 // give the reset button function
 document.getElementById("reset").addEventListener("click", reset);
