@@ -87,22 +87,19 @@ const gridMark = (string) => {
 };
 // check to see if a player has won
 let checkWin = (mark) => {
-  if (grid[0].toString() === [mark, mark, mark].toString())
-    console.log("winner");
-  if (grid[1].toString() === [mark, mark, mark].toString())
-    console.log("winner");
-  if (grid[2].toString() === [mark, mark, mark].toString())
-    console.log("winner");
+  if (grid[0].toString() === [mark, mark, mark].toString()) displayWin(mark);
+  if (grid[1].toString() === [mark, mark, mark].toString()) displayWin(mark);
+  if (grid[2].toString() === [mark, mark, mark].toString()) displayWin(mark);
   if (grid[0][0] === mark && grid[1][0] === mark && grid[2][0] === mark)
-    console.log("winner");
+    displayWin(mark);
   if (grid[0][1] === mark && grid[1][1] === mark && grid[2][1] === mark)
-    console.log("winner");
+    displayWin(mark);
   if (grid[0][2] === mark && grid[1][2] === mark && grid[2][2] === mark)
-    console.log("winner");
+    displayWin(mark);
   if (grid[0][0] === mark && grid[1][1] === mark && grid[2][2] === mark)
-    console.log("winner");
+    displayWin(mark);
   if (grid[0][2] === mark && grid[1][1] === mark && grid[2][0] === mark)
-    console.log("winner");
+    displayWin(mark);
 };
 // let possibleWins
 //
@@ -127,6 +124,35 @@ let checkWin = (mark) => {
 // grid[0][2] === "o" && grid[1][1] === "o" && grid[2][0] ==="o"
 
 // display the winning message page with winning message
+let displayWin = (mark) => {
+  document.querySelector(".winning").style.display = "block";
+  document.querySelector(".message").innerHTML = `${mark}'s win!`;
+};
 // check to see if there is a tie
 // display the winning message page with tie message
 // click reset button to play again
+let reset = () => {
+  // reset grid
+  grid = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
+  // reset draw
+  draw = 8;
+  // clear board
+  clearBoard();
+  // re make board
+  makeBoard();
+  // change it back to player 1 turn
+  changeTurn();
+  // hide the win screen
+  document.querySelector(".winning").style.display = "none";
+};
+
+let clearBoard = () => {
+  // change node list into array and then remove all the elements
+  [...document.querySelectorAll(".cell")].forEach((cell) => cell.remove());
+};
+// give the reset button function
+document.getElementById("reset").addEventListener("click", reset);
