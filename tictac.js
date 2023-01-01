@@ -10,11 +10,11 @@ let addMark = (e) => {
   // check to see if there is a tie
   if (draw === 0) tieGame();
   else {
-    // check for a win
-    if (player1Turn) checkWin("x");
-    else checkWin("o");
     draw--;
   }
+  // check for a win
+  if (player1Turn) checkWin("x");
+  else checkWin("o");
   // change turn
   changeTurn();
 };
