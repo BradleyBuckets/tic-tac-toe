@@ -16,7 +16,7 @@
 // })();
 
 // let game = gameboard.tic;
-
+let draw = 8;
 // player 1 is always x
 // player 2 is always o
 //
@@ -25,6 +25,13 @@ let addMark = (e) => {
   gridMark(e.target.classList[1]);
   if (player1Turn) e.target.classList.add("x");
   else e.target.classList.add("o");
+  // check for a win
+  if (draw === 0) console.log("draw");
+  else {
+    if (player1Turn) checkWin("x");
+    else checkWin("o");
+    draw--;
+  }
   // change turn
   changeTurn();
 };
@@ -78,6 +85,47 @@ const gridMark = (string) => {
   if (player1Turn) grid[row][column] = "x";
   else grid[row][column] = "o";
 };
+// check to see if a player has won
+let checkWin = (mark) => {
+  if (grid[0].toString() === [mark, mark, mark].toString())
+    console.log("winner");
+  if (grid[1].toString() === [mark, mark, mark].toString())
+    console.log("winner");
+  if (grid[2].toString() === [mark, mark, mark].toString())
+    console.log("winner");
+  if (grid[0][0] === mark && grid[1][0] === mark && grid[2][0] === mark)
+    console.log("winner");
+  if (grid[0][1] === mark && grid[1][1] === mark && grid[2][1] === mark)
+    console.log("winner");
+  if (grid[0][2] === mark && grid[1][2] === mark && grid[2][2] === mark)
+    console.log("winner");
+  if (grid[0][0] === mark && grid[1][1] === mark && grid[2][2] === mark)
+    console.log("winner");
+  if (grid[0][2] === mark && grid[1][1] === mark && grid[2][0] === mark)
+    console.log("winner");
+};
+// let possibleWins
+//
+// winning rows
+// grid[0] || grid[1] || grid[2] === ["x", "x", "x"]
+// grid[0] || grid[1] || grid[2] === ["o", "o", "o"]
+//
+// winning collums
+// grid[0][0] === "x" && grid[1][0] === "x" && grid[2][0] === "x"
+// grid[0][1] === "x" && grid[1][1] === "x" && grid[2][1] === "x"
+// grid[0][2] === "x" && grid[1][2] === "x" && grid[2][2] === "x"
+//
+// grid[0][0] === "o" && grid[1][0] === "o" && grid[2][0] === "o"
+// grid[0][1] === "o" && grid[1][1] === "o" && grid[2][1] === "o"
+// grid[0][2] === "o" && grid[1][2] === "o" && grid[2][2] === "o"
+//
+// winning diagonals
+// grid[0][0] === "x" && grid[1][1] === "x" && grid[2][2] ==="x"
+// grid[0][2] === "x" && grid[1][1] === "x" && grid[2][0] ==="x"
+
+// grid[0][0] === "o" && grid[1][1] === "o" && grid[2][2] ==="o"
+// grid[0][2] === "o" && grid[1][1] === "o" && grid[2][0] ==="o"
+
 // display the winning message page with winning message
 // check to see if there is a tie
 // display the winning message page with tie message
