@@ -26,7 +26,7 @@ let addMark = (e) => {
   if (player1Turn) e.target.classList.add("x");
   else e.target.classList.add("o");
   // check for a win
-  if (draw === 0) console.log("draw");
+  if (draw === 0) tieGame();
   else {
     if (player1Turn) checkWin("x");
     else checkWin("o");
@@ -127,6 +127,11 @@ let checkWin = (mark) => {
 let displayWin = (mark) => {
   document.querySelector(".winning").style.display = "block";
   document.querySelector(".message").innerHTML = `${mark}'s win!`;
+};
+
+let tieGame = () => {
+  document.querySelector(".winning").style.display = "block";
+  document.querySelector(".message").innerHTML = `It's a tie!`;
 };
 // check to see if there is a tie
 // display the winning message page with tie message
